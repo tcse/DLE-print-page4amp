@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>DLE-print-page4amp</name>
+	<description>плагин генерации AMP страниц для DLE на основе версии для печати by TCSE.</description>
+	<icon>engine/skins/images/amp4dle.png</icon>
+	<version>1.0.0</version>
+	<dleversion>14.0</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl>https://online.tcse-cms.com/plugins/DLE-print-page4amp/check-DLE-print-page4amp.php</upgradeurl>
+	<filedelete>1</filedelete>
+	<needplugin></needplugin>
+	<mnotice>1</mnotice>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[Плагин добавляет в заголовок страницы полной новости (шаблон fullstory.tpl) метатег 
+[code]<link rel="amphtml" href="{$print_link}">[/code]
+По которой Google проверяет наличие AMP версии публикации.
+
+Вам необходимо внести правки в шаблон print.tpl для стилизации под свой проект.]]></notice>
+	<file name="engine/engine.php">
+		<operation action="before">
+			<searchcode><![CDATA[if ($canonical) {]]></searchcode>
+			<replacecode><![CDATA[if ($subaction == "showfull") {
+	$metatags .= <<<HTML
+	
+HTML;
+	$metatags .= <<<HTML
+<link rel="amphtml" href="{$print_link}">
+HTML;
+};]]></replacecode>
+		</operation>
+	</file>
+</dleplugin>
