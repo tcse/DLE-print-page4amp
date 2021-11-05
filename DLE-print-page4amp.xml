@@ -24,7 +24,17 @@
 [code]<link rel="amphtml" href="{$print_link}">[/code]
 По которой Google проверяет наличие AMP версии публикации.
 
-Вам необходимо внести правки в шаблон print.tpl для стилизации под свой проект.]]></notice>
+Вам необходимо внести правки в шаблон [b]print.tpl[/b] для стилизации под свой проект.
+
+Для отображения Видео с YouTube необходимо использовать отдельное дополнительное поле
+Вставьте  через ftp в файл engine/data/xfields.txt с новой строки текст
+
+[code]amp-youtube-id|ID ролика на YouTube||text||1|0|0|1|||0|0||||||Например у ссылки https://youtu.be/OVwGlCPvWbM это  OVwGlCPvWbM||||||||
+[/code]
+
+И далее в новостях указывайте Youtube ID ролика.
+
+Страница поддержки [url=https://tcse-cms.com/printpage2amp]tcse-cms.com/printpage2amp[/url]]]></notice>
 	<file name="engine/engine.php">
 		<operation action="before">
 			<searchcode><![CDATA[if ($canonical) {]]></searchcode>

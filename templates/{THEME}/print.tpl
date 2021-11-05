@@ -34,6 +34,7 @@
 	        "description": "{full-story limit="150"}",
 	        "author": {
 	          "@type": "Person",
+	          "url": "{foto}",
 	          "name": "{login}"
 	        },
 	        "publisher": {
@@ -72,7 +73,7 @@
         <div role="button" aria-label="close sidebar" on="tap:header-sidebar.toggle" tabindex="0" class="ampstart-navbar-trigger items-start">✕</div>
     </div>
     <nav class="ampstart-sidebar-nav ampstart-nav">
-        {catmenu id="1-100" subcat="no" template="print_categorymenu" cache="yes"}
+        {catmenu id="1-100" subcat="no" template="custom/amp/categorymenu" cache="yes"}
     </nav>
 </amp-sidebar>
 <!-- End Sidebar -->
@@ -93,9 +94,9 @@
 			[/fullimage-1]
 		[/not-image-1]
 
-		[image-x] 
+		[image-1] 
 			<amp-img src="{image-1}" width="500" height="150"></amp-img> 
-		[/image-x]
+		[/image-1]
 
 		[xfgiven_youtube-id]
 			<amp-youtube
@@ -104,7 +105,9 @@
 		    width="480" height="270"></amp-youtube>
 	    [/xfgiven_youtube-id]
 
-		{full-story}
+		<div class="not-img">
+	    	{full-story}
+	    </div>
 	</div>
 </article>
 
