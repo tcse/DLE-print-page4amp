@@ -85,6 +85,19 @@
 	<section class="ampstart-related-section mb4">
 		<p class="mb4">{link-category} | {date}</p>
 	</section>
+
+
+	{* Рекламный блок *}
+    {* <div class="mb-4">
+        <amp-ad width="100vw" height=320
+                type="adsense"
+                data-ad-client="ca-pub-5295124462895719"
+                data-ad-slot="1033992468"
+                data-auto-format="rspv"
+                data-full-width>
+          <div overflow></div>
+        </amp-ad>
+    </div> *}
 	
 	<div class="mb4">
 
@@ -98,12 +111,13 @@
 			<amp-img src="{image-1}" width="500" height="150"></amp-img> 
 		[/image-1]
 
-		[xfgiven_youtube-id]
+		{* Вывод youtube ролика через доп.поле *}
+		{* [xfgiven_youtube-id]
 			<amp-youtube
 		    data-videoid="[xfvalue_youtube-id]"
 		    layout="responsive"
 		    width="480" height="270"></amp-youtube>
-	    [/xfgiven_youtube-id]
+	    [/xfgiven_youtube-id] *}
 
 		<div class="not-img">
 	    	{full-story}
