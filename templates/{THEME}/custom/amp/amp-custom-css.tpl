@@ -1446,7 +1446,7 @@ a,a:active,a:visited {
   word-wrap: normal;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #333;
+  background-color: #000;
   color: #fff;
   border: 1px solid #fff
 }
@@ -1857,8 +1857,8 @@ amp-carousel .ampstart-image-with-caption {
 }
 
 .ampstart-headerbar {
-  background-color: #333;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   z-index: 999;
   box-shadow: 0 0 5px 2px rgba(0,0,0,.1)
 }
@@ -2043,6 +2043,9 @@ amp-carousel .ampstart-image-with-caption {
 }
 
     /* any custom style goes here */
+    a {text-decoration: none;}
+    a:hover {text-decoration: underline;}
+
     body {
       background-color: white;
       padding: 10px;
@@ -2055,9 +2058,20 @@ amp-carousel .ampstart-image-with-caption {
     .fullstory {margin-bottom: 50px;}
     .fullstory img {max-width: 100%;}
     .not-img img {display: none;}
-
-    h1 {color: #333; font-weight: 600; font-size: 2em;}
+    .ampstart-headerbar {
+      background-color: #162133;
+      color: #fff;
+    }
+    .ampstart-btn {
+      background-color: #ccc;
+      color: #000;
+      border: 1px solid #fff;
+    }
+    h1 {color: #162133; font-weight: 600; font-size: 2em;}
     h1 > a {text-decoration: none;}
     h1 > a:hover {text-decoration: underline;}
-
+    .ampstart-fullpage-hero-heading-text {color: #fff;}
+    .ampstart-navbar {font-weight: 700; font-size: 1.5em;}
+    .ampstart-fullpage-hero-heading-text, .ampstart-image-fullpage-hero .ampstart-image-credit {background: rgba(0, 0, 0, 0.3);}
+    .ampstart-readmore-text {background: rgba(0, 0, 0, 0.3); }
 </style>

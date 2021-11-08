@@ -79,51 +79,53 @@
 <!-- End Sidebar -->
 <!-- End Navbar -->
 
-<article class="fullstory photo-article">
-	<h1 class="title">[full-link]{title}[/full-link]</h1>
+[image-1]
+<!-- Start Fullpage Hero -->
+<figure class="ampstart-image-fullpage-hero m0 relative mb4">
+    <amp-img width="404" height="720" alt="picture" layout="responsive" src="{image-1}" media="(max-width: 415px)"></amp-img>
+    <amp-img height="720" alt="picture" layout="fixed-height" src="{image-1}" media="(min-width: 416px)"></amp-img>
+    <figcaption class="absolute top-0 right-0 bottom-0 left-0">
+        <header class="p3">
+            <h1 class="ampstart-fullpage-hero-heading mb3">
+                <span class="ampstart-fullpage-hero-heading-text">
+                    {title}
+                </span>
+            </h1>
+            <span class="ampstart-image-credit h4">
+                {link-category}
+            </span>
+        </header>
+        <footer class="absolute left-0 right-0 bottom-0">
+            <a class="ampstart-readmore py3 caps line-height-2 text-decoration-none center block h5" href="#content"><span class="ampstart-readmore-text p2">Далее</span></a>
+        </footer>
+    </figcaption>
+</figure>
+<!-- End Fullpage Hero -->
+[/image-1]
 
-	<section class="ampstart-related-section mb4">
-		<p class="mb4">{link-category} | {date}</p>
-	</section>
 
+<main id="content" role="main" class="">
+	<article class="fullstory photo-article">
+		[not-image-1]
+		<h1 class="title">[full-link]{title}[/full-link]</h1>
 
-	{* Рекламный блок *}
-    {* <div class="mb-4">
-        <amp-ad width="100vw" height=320
-                type="adsense"
-                data-ad-client="ca-pub-5295124462895719"
-                data-ad-slot="1033992468"
-                data-auto-format="rspv"
-                data-full-width>
-          <div overflow></div>
-        </amp-ad>
-    </div> *}
-	
-	<div class="mb4">
-
-		[not-image-1] 
-			[fullimage-1] 
-			    <amp-img src="{fullimage-1}" width="500" height="150"></amp-img> 
-			[/fullimage-1]
+		<section class="ampstart-related-section mb4">
+			<p class="mb4">{link-category} | {date}</p>
+		</section>
 		[/not-image-1]
 
-		[image-1] 
-			<amp-img src="{image-1}" width="500" height="150"></amp-img> 
-		[/image-1]
+		<div class="mb4 not-img">
+			{full-story}
+		</div>
+		<div class="mb4">
+			<a href="{full-link}" class="ampstart-btn">Перейти на сайт</a>
+		</div>
 
-		{* Вывод youtube ролика через доп.поле *}
-		{* [xfgiven_youtube-id]
-			<amp-youtube
-		    data-videoid="[xfvalue_youtube-id]"
-		    layout="responsive"
-		    width="480" height="270"></amp-youtube>
-	    [/xfgiven_youtube-id] *}
+	</article>
 
-		<div class="not-img">
-	    	{full-story}
-	    </div>
-	</div>
-</article>
+
+        
+</main>
 
 <!-- Start Footer -->
 <footer class="ampstart-footer flex flex-column items-center px3 ">
