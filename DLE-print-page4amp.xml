@@ -61,7 +61,7 @@ if (stripos($tpl->copy_template, "{amp-full-story}") !== false) {
             ['<amp-img', '<amp-video', '/amp-video>', '<amp-audio', '/amp-audio>'],
             $html
         );
-        $html = preg_replace('/<amp-img(.*?)\/?>/', '<amp-img width="320" height="240" $1></amp-img>', $html);
+        $html = preg_replace('/<amp-img(.*?)\/?>/', '<amp-img width="320"  height="240" $1></amp-img>', $html);
         $html = strip_tags($html, '<h1><h2><h3><h4><h5><h6><a><p><ul><ol><li><blockquote><q><cite><ins><del><strong><em><code><pre><svg><table><thead><tbody><tfoot><th><tr><td><dl><dt><dd><article><section><header><footer><aside><figure><time><abbr><div><span><hr><small><br><amp-img><amp-audio><amp-video><amp-ad><amp-anim><amp-carousel><amp-fit-rext><amp-image-lightbox><amp-instagram><amp-lightbox><amp-twitter><amp-youtube>');
 
         return $html;
