@@ -115,7 +115,7 @@
 		[/not-image-1]
 
 		<div class="mb4 not-img">
-			{full-story}
+			{amp-full-story}
 		</div>
 		<div class="mb4">
 			<a href="{full-link}" class="ampstart-btn">Перейти на сайт</a>
