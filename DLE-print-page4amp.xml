@@ -3,7 +3,7 @@
 	<name>DLE-print-page4amp</name>
 	<description>плагин генерации AMP страниц для DLE на основе версии для печати by TCSE.</description>
 	<icon>engine/skins/images/amp4dle.png</icon>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<dleversion>14.0</dleversion>
 	<versioncompare>greater</versioncompare>
 	<upgradeurl>https://online.tcse-cms.com/plugins/DLE-print-page4amp/check-DLE-print-page4amp.php</upgradeurl>
@@ -25,6 +25,7 @@
 По которой Google проверяет наличие AMP версии публикации.
 
 Вам необходимо внести правки в шаблон [b]print.tpl[/b] для стилизации под свой проект.
+{amp-full-story} данный шаблон использовать вместо {full-story}
 
 Для отображения Видео с YouTube необходимо использовать отдельное дополнительное поле
 Вставьте  через ftp в файл engine/data/xfields.txt с новой строки текст
@@ -46,6 +47,30 @@ HTML;
 <link rel="amphtml" href="{$print_link}">
 HTML;
 };]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.full.php">
+		<operation action="after">
+			<searchcode><![CDATA[$tpl->set( '{full-story}', $row['full_story'] );]]></searchcode>
+			<replacecode><![CDATA[//====== print-page4amp =======
+if (stripos($tpl->copy_template, "{amp-full-story}") !== false) {
+    function ampify($html = '')
+    {
+        $html = str_ireplace(
+            ['<img', '<video', '/video>', '<audio', '/audio>'],
+            ['<amp-img', '<amp-video', '/amp-video>', '<amp-audio', '/amp-audio>'],
+            $html
+        );
+        $html = preg_replace('/<amp-img(.*?)\/?>/', '<amp-img$1></amp-img>', $html);
+        $html = strip_tags($html, '<h1><h2><h3><h4><h5><h6><a><p><ul><ol><li><blockquote><q><cite><ins><del><strong><em><code><pre><svg><table><thead><tbody><tfoot><th><tr><td><dl><dt><dd><article><section><header><footer><aside><figure><time><abbr><div><span><hr><small><br><amp-img><amp-audio><amp-video><amp-ad><amp-anim><amp-carousel><amp-fit-rext><amp-image-lightbox><amp-instagram><amp-lightbox><amp-twitter><amp-youtube>');
+
+        return $html;
+
+    }
+
+    $tpl->set('{amp-full-story}', ampify($row['full_story'])); 
+}
+//====== print-page4amp =======]]></replacecode>
 		</operation>
 	</file>
 </dleplugin>
