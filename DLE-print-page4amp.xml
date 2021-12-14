@@ -3,8 +3,8 @@
 	<name>DLE-print-page4amp</name>
 	<description>плагин генерации AMP страниц для DLE на основе версии для печати by TCSE.</description>
 	<icon>engine/skins/images/amp4dle.png</icon>
-	<version>1.0.1</version>
-	<dleversion>14.0</dleversion>
+	<version>1.0.2</version>
+	<dleversion>13.0</dleversion>
 	<versioncompare>greater</versioncompare>
 	<upgradeurl>https://online.tcse-cms.com/plugins/DLE-print-page4amp/check-DLE-print-page4amp.php</upgradeurl>
 	<filedelete>1</filedelete>
@@ -35,7 +35,7 @@
 
 И далее в новостях указывайте Youtube ID ролика.
 
-Страница поддержки [url=https://tcse-cms.com/printpage2amp]tcse-cms.com/printpage2amp[/url]]]></notice>
+Страница поддержки [url=https://tcse-cms.com/printpage4amp]tcse-cms.com/printpage4amp[/url]]]></notice>
 	<file name="engine/engine.php">
 		<operation action="before">
 			<searchcode><![CDATA[if ($canonical) {]]></searchcode>

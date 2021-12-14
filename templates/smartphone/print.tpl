@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="description" content='{full-story limit="150"}'>
-    <title>{title} - Название сайта</title>
+	<title>{title} - Название сайта</title>
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0/amp-experiment-0.1.js">
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0/amp-dynamic-css-classes-0.1.js">
@@ -14,48 +14,48 @@
     <script async custom-element="amp-dynamic-css-classes" src="https://cdn.ampproject.org/v0/amp-dynamic-css-classes-0.1.js"></script>
     <script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async=""></script>
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
-    <script custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js" async=""></script>
-    {* <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> *}
+	<script custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js" async=""></script>
+	{* <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> *}
     <!-- Import other AMP Extensions here -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    {include file="custom/print/amp-custom-css.tpl"}
+	{include file="custom/print/amp-custom-css.tpl"}
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
     <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
     <link rel="canonical" href="{full-link}">
     <!-- "@type": "NewsArticle" -->
-    <script type="application/ld+json">
-    {
-            "@context": "http://schema.org",
-            "@type": "NewsArticle",
-            "mainEntityOfPage": "{full-link}",
-            "headline": "{title}",
-            "datePublished": "{date=d-m-Y H:i}",
-            "dateModified": "{date=d-m-Y H:i}",
-            "description": "{full-story limit="150"}",
-            "author": {
-              "@type": "Person",
-              "url": "{THEME}/dleimages/noavatar.png",
-              "name": "{login}"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Название сайта",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "{THEME}/dleimages/no_image.jpg",
-                "width": 600,
-                "height": 60
-              }
-            },
-            "image": {
-              "@type": "ImageObject",
-              "url": "{image-1}",
-              "height": 320,
-              "width": 240
-            }
-          }
-    </script>
+	<script type="application/ld+json">
+	{
+	        "@context": "http://schema.org",
+	        "@type": "NewsArticle",
+	        "mainEntityOfPage": "{full-link}",
+	        "headline": "{title}",
+	        "datePublished": "{date=d-m-Y H:i}",
+	        "dateModified": "{date=d-m-Y H:i}",
+	        "description": "{full-story limit="150"}",
+	        "author": {
+	          "@type": "Person",
+	          "url": "{THEME}/dleimages/noavatar.png",
+	          "name": "{login}"
+	        },
+	        "publisher": {
+	          "@type": "Organization",
+	          "name": "Название сайта",
+	          "logo": {
+	            "@type": "ImageObject",
+	            "url": "{THEME}/dleimages/no_image.jpg",
+	            "width": 600,
+	            "height": 60
+	          }
+	        },
+	        "image": {
+	          "@type": "ImageObject",
+	          "url": "{image-1}",
+	          "height": 320,
+	          "width": 240
+	        }
+	      }
+	</script>
   </head>
   <body>
 
@@ -106,20 +106,20 @@
 
 
 <main id="content" role="main" class="">
-    <article class="fullstory photo-article">
-        [not-image-1]
-        <h1 class="title">[full-link]{title}[/full-link]</h1>
-        <section class="ampstart-related-section mb4">
-            <p class="mb4">{link-category} | {date}</p>
-        </section>
-        [/not-image-1]
-        <div class="mb4">
-            {amp-full-story}
-        </div>
-        <div class="mb4">
-            <a href="{full-link}" class="ampstart-btn">Перейти на сайт</a>
-        </div>
-    </article>  
+	<article class="fullstory photo-article">
+		[not-image-1]
+		<h1 class="title">[full-link]{title}[/full-link]</h1>
+		<section class="ampstart-related-section mb4">
+			<p class="mb4">{link-category} | {date}</p>
+		</section>
+		[/not-image-1]
+		<div class="mb4">
+			{amp-full-story}
+		</div>
+		<div class="mb4">
+			<a href="{full-link}" class="ampstart-btn">Перейти на сайт</a>
+		</div>
+	</article>  
 </main>
 
 <!-- Start Footer -->
