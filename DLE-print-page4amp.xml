@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dleplugin>
 	<name>DLE-print-page4amp</name>
-	<description>плагин генерации AMP страниц для DLE на основе версии для печати by TCSE.</description>
+	<description>плагин генерации AMP страниц для DLE на основе версии для печати by TCSE. 
+Для DLE 15.1</description>
 	<icon>engine/skins/images/amp4dle.png</icon>
-	<version>1.0.2</version>
-	<dleversion>13.0</dleversion>
+	<version>1.0.3</version>
+	<dleversion>14.0</dleversion>
 	<versioncompare>greater</versioncompare>
 	<upgradeurl>https://online.tcse-cms.com/plugins/DLE-print-page4amp/check-DLE-print-page4amp.php</upgradeurl>
 	<filedelete>1</filedelete>
@@ -36,17 +37,22 @@
 И далее в новостях указывайте Youtube ID ролика.
 
 Страница поддержки [url=https://tcse-cms.com/printpage4amp]tcse-cms.com/printpage4amp[/url]]]></notice>
-	<file name="engine/engine.php">
-		<operation action="before">
-			<searchcode><![CDATA[if ($canonical) {]]></searchcode>
-			<replacecode><![CDATA[if ($subaction == "showfull") {
+	<file name="engine/modules/main.php">
+		<operation action="after">
+			<searchcode><![CDATA[if ( $dle_module == "showfull" AND $news_found ) {]]></searchcode>
+			<replacecode><![CDATA[//====== print-page4amp =======
+if ($subaction == "showfull") {
 	$metatags .= <<<HTML
-	
-HTML;
-	$metatags .= <<<HTML
-<link rel="amphtml" href="{$print_link}">
-HTML;
-};]]></replacecode>
+		
+	HTML;
+		$metatags .= <<<HTML
+	<link rel="amphtml" href="{$print_link}">
+	HTML;
+};
+//====== .print-page4amp =======]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>15.1</dleversion>
+			<versioncompare>greater</versioncompare>
 		</operation>
 	</file>
 	<file name="engine/modules/show.full.php">
@@ -61,7 +67,7 @@ if (stripos($tpl->copy_template, "{amp-full-story}") !== false) {
             ['<amp-img', '<amp-video', '/amp-video>', '<amp-audio', '/amp-audio>'],
             $html
         );
-        $html = preg_replace('/<amp-img(.*?)\/?>/', '<amp-img width="320"  height="240" $1></amp-img>', $html);
+        $html = preg_replace('/<amp-img(.*?)\/?>/', '<amp-img width="320"  height="240" layout="responsive" $1></amp-img>', $html);
         $html = strip_tags($html, '<h1><h2><h3><h4><h5><h6><a><p><ul><ol><li><blockquote><q><cite><ins><del><strong><em><code><pre><svg><table><thead><tbody><tfoot><th><tr><td><dl><dt><dd><article><section><header><footer><aside><figure><time><abbr><div><span><hr><small><br><amp-img><amp-audio><amp-video><amp-ad><amp-anim><amp-carousel><amp-fit-rext><amp-image-lightbox><amp-instagram><amp-lightbox><amp-twitter><amp-youtube>');
 
         return $html;
@@ -72,6 +78,23 @@ if (stripos($tpl->copy_template, "{amp-full-story}") !== false) {
 }
 //====== print-page4amp =======
 ]]></replacecode>
+			<enabled>1</enabled>
+		</operation>
+	</file>
+	<file name="engine/engine.php">
+		<operation action="before">
+			<searchcode><![CDATA[if ($canonical) {]]></searchcode>
+			<replacecode><![CDATA[if ($subaction == "showfull") {
+	$metatags .= <<<HTML
+	
+HTML;
+	$metatags .= <<<HTML
+<link rel="amphtml" href="{$print_link}">
+HTML;
+};]]></replacecode>
+			<enabled>1</enabled>
+			<dleversion>15.0</dleversion>
+			<versioncompare>less</versioncompare>
 		</operation>
 	</file>
 </dleplugin>
