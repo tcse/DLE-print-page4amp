@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>Print page for AMP</name>
+	<description>Плагин создает версию для печати страницы с поддержкой AMP</description>
+	<icon>engine/skins/images/print.png</icon>
+	<version>1.0.6</version>
+	<dleversion>13.0</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl>https://tcse-cms.com/</upgradeurl>
+	<filedelete>0</filedelete>
+	<needplugin></needplugin>
+	<mnotice>0</mnotice>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[]]></notice>
+	<file name="engine/modules/show.full.php">
+		<operation action="after">
+			<searchcode><![CDATA[if( $config['allow_alt_url'] ) {]]></searchcode>
+			<replacecode><![CDATA[if( $config['allow_alt_url'] ) {
+	
+	if( isset( $_GET['amp'] ) ) $print_link = $full_link . "print/";
+	else $print_link = $full_link . "print/";]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[} else {]]></searchcode>
+			<replacecode><![CDATA[} else {
+	
+	if( isset( $_GET['amp'] ) ) $print_link = $config['http_home_url'] . "index.php?newsid=" . $row['id'] . "&news_page=" . $news_page . "&print=1";
+	else $print_link = $config['http_home_url'] . "index.php?newsid=" . $row['id'] . "&news_page=" . $news_page . "&print=1";]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[$tpl->set( '{full-link}', $full_link );]]></searchcode>
+			<replacecode><![CDATA[$tpl->set( '{full-link}', $full_link );
+$tpl->set( '{print-link}', $print_link );]]></replacecode>
+		</operation>
+	</file>
+	<file name="index.php">
+		<operation action="before">
+			<searchcode><![CDATA[case "userinfo" :]]></searchcode>
+			<replacecode><![CDATA[case "print" :
+	include ENGINE_DIR . '/modules/print.php';
+	break;
+
+case "userinfo" :]]></replacecode>
+		</operation>
+	</file>
+	
+	<!-- Adding AMP validation and processing -->
+	<file name="engine/modules/print.php">
+		<operation action="before">
+			<searchcode><![CDATA[// End of file]]></searchcode>
+			<replacecode><![CDATA[
+// AMP validation and processing
+function validate_amp_content($content) {
+    // Remove disallowed tags in AMP
+    $disallowed_tags = ['script', 'iframe', 'frame', 'frameset', 'object', 'param', 'applet', 'embed'];
+    foreach ($disallowed_tags as $tag) {
+        $content = preg_replace('/<'.$tag.'[^>]*>.*?<\/'.$tag.'>/is', '', $content);
+        $content = preg_replace('/<'.$tag.'[^>]*\/>/is', '', $content);
+    }
+    
+    // Convert img tags to amp-img
+    $content = preg_replace_callback('/<img([^>]*)>/is', 'convert_to_amp_img', $content);
+    
+    // Convert video tags to amp-video
+    $content = preg_replace_callback('/<video([^>]*?)>(.*?)<\/video>/is', 'convert_to_amp_video', $content);
+    
+    // Convert iframes to amp-iframe (if any remain after filtering)
+    $content = preg_replace_callback('/<iframe([^>]*)><\/iframe>/is', 'convert_to_amp_iframe', $content);
+    
+    // Remove inline styles (not allowed in AMP)
+    $content = preg_replace('/style\s*=\s*"[^"]*"/i', '', $content);
+    
+    // Add AMP boilerplate
+    $content = add_amp_boilerplate($content);
+    
+    return $content;
+}
+
+// Convert img to amp-img with proper dimensions
+function convert_to_amp_img($matches) {
+    $attributes = $matches[1];
+    
+    // Extract width and height
+    $width = preg_match('/width\s*=\s*["\']?(\d+)["\']?/i', $attributes, $width_match) ? $width_match[1] : '100';
+    $height = preg_match('/height\s*=\s*["\']?(\d+)["\']?/i', $attributes, $height_match) ? $height_match[1] : '100';
+    $src = preg_match('/src\s*=\s*["\']([^"\']*)["\']/', $attributes, $src_match) ? $src_match[1] : '';
+    $alt = preg_match('/alt\s*=\s*["\']([^"\']*)["\']/', $attributes, $alt_match) ? $alt_match[1] : '';
+    
+    // If no height/width, set default layout to responsive
+    $layout = (!$width_match || !$height_match) ? ' layout="responsive"' : '';
+    
+    return '<amp-img src="' . $src . '" width="' . $width . '" height="' . $height . '" alt="' . $alt . '"' . $layout . '></amp-img>';
+}
+
+// Convert video to amp-video
+function convert_to_amp_video($matches) {
+    $attributes = $matches[1];
+    $content = $matches[2];
+    
+    // Extract width and height
+    $width = preg_match('/width\s*=\s*["\']?(\d+)["\']?/i', $attributes, $width_match) ? $width_match[1] : '640';
+    $height = preg_match('/height\s*=\s*["\']?(\d+)["\']?/i', $attributes, $height_match) ? $height_match[1] : '360';
+    
+    // Extract source
+    preg_match('/<source[^>]*src\s*=\s*["\']([^"\']*)["\'][^>]*>/i', $content, $source_match);
+    $src = isset($source_match[1]) ? $source_match[1] : '';
+    
+    if (!$src) {
+        preg_match('/src\s*=\s*["\']([^"\']*)["\']/', $attributes, $src_match);
+        $src = isset($src_match[1]) ? $src_match[1] : '';
+    }
+    
+    return '<amp-video width="' . $width . '" height="' . $height . '" src="' . $src . '" layout="responsive" controls></amp-video>';
+}
+
+// Convert iframe to amp-iframe
+function convert_to_amp_iframe($matches) {
+    $attributes = $matches[1];
+    
+    // Extract width and height
+    $width = preg_match('/width\s*=\s*["\']?(\d+)["\']?/i', $attributes, $width_match) ? $width_match[1] : '640';
+    $height = preg_match('/height\s*=\s*["\']?(\d+)["\']?/i', $attributes, $height_match) ? $height_match[1] : '360';
+    $src = preg_match('/src\s*=\s*["\']([^"\']*)["\']/', $attributes, $src_match) ? $src_match[1] : '';
+    
+    return '<amp-iframe width="' . $width . '" height="' . $height . '" src="' . $src . '" layout="responsive" sandbox="allow-scripts allow-same-origin" frameborder="0"></amp-iframe>';
+}
+
+// Add AMP boilerplate
+function add_amp_boilerplate($content) {
+    // This function would add necessary AMP boilerplate if needed
+    return $content;
+}
+
+// Check if we need to process as AMP
+if (isset($_GET['amp']) && $_GET['amp'] == 1) {
+    $is_amp = true;
+    // Process the content through AMP validator before output
+    $row['full_story'] = validate_amp_content($row['full_story']);
+}
+]]></replacecode>
+		</operation>
+	</file>
+</dleplugin>
